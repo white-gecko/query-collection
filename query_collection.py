@@ -32,6 +32,8 @@ class TemplateQueryCollection:
 
     def get(self, key):
         query_object = self.queries.get(key)
+        if not query_object:
+            return None
         if not isinstance(query_object, TemplateQuery):
             return TemplateQuery(query_object=query_object, initNs=self.initNs)
         else:
