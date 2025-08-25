@@ -1,0 +1,10 @@
+version: '3'
+
+tasks:
+  default:
+    desc: "List available tasks"
+    cmds: task -l
+
+  test:
+    dest: "Run tests"
+    cmds: poetry run pytest
