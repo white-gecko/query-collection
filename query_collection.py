@@ -55,4 +55,4 @@ class TemplateQueryCollection:
     def loadFromFile(self, filename: Path):
         """Load a queriy from an .rq file."""
         with open(filename, "r") as fileobject:
-            self.set(splitext(filename)[0], fileobject.read())
+            self.set(splitext(filename.name)[0], fileobject.read())
