@@ -25,9 +25,9 @@ class TemplateQuery:
     p = prepare
 
 
-class TemplateQueryCollection(dict):
-    def __init__(self, queries: dict = {}, initNs: Optional[Mapping[str, Any]] = None):
-        self.queries = queries
+class TemplateQueryCollection:
+    def __init__(self, queries: dict | None = None, initNs: Optional[Mapping[str, Any]] = None):
+        self.queries = queries or {}
         self.initNs = initNs
 
     def get(self, key):
