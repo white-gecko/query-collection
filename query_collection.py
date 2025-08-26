@@ -16,10 +16,36 @@ class TemplateQuery:
         self.initNs = initNs
 
     def prepare(self, **initBindings):
+        # Setting use_store_provided is a hack, since the SPARQLStore of rdflib does not handle initBindings correctly:
+        # cf. https://github.com/RDFLib/rdflib/issues/1772
+        # alternatively in this prepare query, the initBindings could be injected directly into the query, while it would also be nice
+        # if someone implements it here, to provide a pull request to the rdflib
+
+        # something like, the following would be nice, but translateAlgebra() currently also replaces Functions with placeholders.
+        #
+        # from loguru import logger
+        # from rdflib.plugins.sparql.algebra import translateQuery, translateAlgebra, Values, Join, pprintAlgebra
+        # from rdflib.plugins.sparql.parser import parseQuery
+        # query_object = translateQuery(parseQuery(query), queryGraph, initNs)
+        # values = Values(res=[{Variable(x): initBindings[x] for x in v}])
+        # cur = query_object.algebra.p
+        # assert cur.name == "Project"
+        # cur = cur.p
+        # if cur.name == "Filter":
+        #     cur = cur.p
+        # if cur.p.name == "BGP":
+        #     cur.p = Join(p1=values, p2=cur.p)
+        # logger.debug(values)
+        # logger.debug(query_object.algebra.p)
+        # logger.debug(pprintAlgebra(query_object))
+        # query = translateAlgebra(query_object)
+        # logger.debug(query)
+
         return {
             "query_object": self.query_object,
             "initNs": self.initNs,
             "initBindings": initBindings,
+            "use_store_provided": False,
         }
 
     p = prepare
