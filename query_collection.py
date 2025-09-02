@@ -5,6 +5,7 @@ from typing import (
     Any,
     Iterable,
     Mapping,
+    Optional,
     Tuple,
     Union,
 )
@@ -16,7 +17,7 @@ from rdflib.plugins.sparql.sparql import Query
 
 class TemplateQueryCollection:
     def __init__(
-        self, queries: dict | None = None, initNs: Mapping[str, Any] | None = None
+        self, queries: Optional[dict] = None, initNs: Optional[Mapping[str, Any]] = None
     ):
         self.queries = queries or {}
         self.namespaceManager = NamespaceManager(Graph())
@@ -58,7 +59,7 @@ class TemplateQuery:
     def __init__(
         self,
         query_object: Union[str, Query],
-        collection: TemplateQueryCollection | None = None,
+        collection: Optional[TemplateQueryCollection] = None,
     ):
         self.query_object = query_object
         self.collection = collection
