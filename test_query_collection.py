@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from rdflib import Graph
+
 from query_collection import TemplateQuery, TemplateQueryCollection
 
 QUERY_STR = "select ?s ?p ?o { ?s ?p ?o }"
@@ -29,3 +31,13 @@ def test_template_query_collection_from_dir():
     query = tqc.get("spo")
     assert isinstance(query, TemplateQuery)
     assert query.query_object == QUERY_STR
+
+
+def test_template_query_collection_exec_query():
+    g = Graph()
+    tqc = TemplateQueryCollection()
+    tqc.loadFromDirectory(QUERY_DIR)
+    query = tqc.get("spo")
+    assert isinstance(query, TemplateQuery)
+    assert query.query_object == QUERY_STR
+    g.query(**(query.p()))
