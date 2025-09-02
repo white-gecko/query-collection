@@ -41,12 +41,18 @@ class TemplateQuery:
         # query = translateAlgebra(query_object)
         # logger.debug(query)
 
-        return {
-            "query_object": self.query_object,
-            "initNs": self.initNs,
-            "initBindings": initBindings,
-            "use_store_provided": False,
-        }
+        if initBindings:
+            return {
+                "query_object": self.query_object,
+                "initNs": self.initNs,
+                "initBindings": initBindings,
+                "use_store_provided": False,
+            }
+        else:
+            return {
+                "query_object": self.query_object,
+                "initNs": self.initNs,
+            }
 
     p = prepare
 
