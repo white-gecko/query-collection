@@ -1,3 +1,4 @@
+from io import StringIO
 from os import scandir
 from os.path import splitext
 from pathlib import Path
@@ -54,6 +55,10 @@ class TemplateQueryCollection:
         with open(filename, "r") as fileobject:
             self.set(splitext(filename.name)[0], fileobject.read())
 
+    def loadFromStream(self, filename: str, stream: StringIO):
+        """Load a queriy from an .rq file."""
+        with open(filename, "r") as fileobject:
+            self.set(splitext(filename.name)[0], fileobject.read())
 
 class TemplateQuery:
     def __init__(
